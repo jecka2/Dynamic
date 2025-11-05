@@ -1,0 +1,11 @@
+- name: install packages
+  apt:
+    name: mariadb-server
+    state: present
+
+
+- name: start and enable service
+  systemd:
+    name: mariadb
+    state: started
+    enabled: true

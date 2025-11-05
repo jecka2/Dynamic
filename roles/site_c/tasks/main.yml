@@ -1,0 +1,42 @@
+---
+
+
+#- include_tasks: postgresql.yml
+
+- name: install packages
+  apt:
+    name: nodejs
+    state: present
+
+- name: copy config file
+  copy:
+    src: sitec.conf
+    dest: /etc/nginx/conf.d/
+  notify: restart nginx    
+
+- name: create site directory
+  file:
+    path: /var/www/sitec
+    state: directory
+
+- name: copy server
+  copy:
+    src: server.js
+    dest: /var/www/sitec/
+    
+- name: install service
+  copy:
+    src: hellowworld.service
+    dest: /etc/systemd/system
+
+
+- name: systemd daemon reload
+  systemd:
+    daemon_reload: true
+
+
+- name: start and enable service
+  systemd:
+    name: hellowworld.service
+    state: started
+    enabled: yes

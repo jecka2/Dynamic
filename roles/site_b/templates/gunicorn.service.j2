@@ -1,0 +1,14 @@
+[Unit]
+Description=gunicorn daemon for Django
+After=network.target
+
+[Service]
+User={{ django_user }}
+Group={{ django_user }}
+WorkingDirectory={{ project_path }}
+ExecStart={{ project_path }}/venv/bin/gunicorn --config {{ project_path }}/gunicorn.conf.py {{ django_project }}.wsgi:application
+ExecReload=/bin/kill -s HUP $MAINPID
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target

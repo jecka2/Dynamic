@@ -1,0 +1,13 @@
+[Unit]
+Description=hellow.js
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/node ./server.js
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-failure
+WorkingDirectory=/var/www/sitec/%i
+
+[Install]
+WantedBy=multi-user.target

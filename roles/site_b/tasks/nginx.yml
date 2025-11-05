@@ -1,0 +1,25 @@
+---
+- name: Configure Nginx
+  template:
+   src: templates/nginx.conf.j2
+   dest: /etc/nginx/conf.d/{{ django_project }}.conf
+   mode: '0644'
+  notify: Restart Nginx
+
+- name: Remove default Nginx site
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  notify: Restart Nginx
+
+- name: Ensure Nginx is enabled and started
+  systemd:
+    name: nginx
+    state: started
+    enabled: yes
+
+- name: Ensure PostgreSQL is enabled and started
+  systemd:
+   name: postgresql
+   state: started
+   enabled: yes

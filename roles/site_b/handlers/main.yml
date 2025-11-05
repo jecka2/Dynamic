@@ -1,0 +1,20 @@
+---
+- name: Reload systemd
+  systemd:
+   daemon_reload: true
+
+- name: Start Gunicorn
+  systemd:
+   name: gunicorn
+   state: started
+   enabled: true
+
+- name: Restart Gunicorn
+  systemd:
+   name: gunicorn
+   state: restarted
+
+- name: Restart Nginx
+  systemd:
+   name: nginx
+   state: restarted

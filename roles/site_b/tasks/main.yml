@@ -7,6 +7,6 @@
     state: directory
 
 
-#- include_tasks: postgresql.yml
+- include_tasks: postgresql.yml
 - include_tasks: django.yml
 - include_tasks: nginx.yml

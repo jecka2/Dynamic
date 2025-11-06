@@ -69,5 +69,5 @@
 
     - name: Sleep for 800 seconds and continue with play
       ansible.builtin.wait_for:
-        timeout: 750
+        timeout: 200
 ...

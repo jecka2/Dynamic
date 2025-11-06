@@ -10,16 +10,30 @@
     - create_vm
     
 - hosts:
-    - web
-  vars_files:
-    - secrets.yml  
+    - SiteA
   become: true
 
   roles:
     - nginx
     - mysql
     - site_a
-    - site_b
+    
+- hosts:
+    - SiteB
+  vars_files:
+    - secrets.yml   
+  become: true
+
+  roles:
+   - nginx
+   - site_b
+
+- hosts:
+    - SiteC
+  become: true
+
+  roles:
+    - nginx
     - site_c
 
     
